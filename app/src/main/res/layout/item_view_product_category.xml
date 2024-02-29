@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/_3sdp"
+    android:id="@+id/mainBG">
+    
+    
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+        <ImageView
+            android:id="@+id/iVCategoryImage"
+            android:layout_width="78.0dp"
+            android:layout_height="78.0dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/vegetable"
+            android:background="@drawable/bg_category"
+            />
+
+        <TextView
+            android:id="@+id/tvCategoryTitle"
+            android:layout_width="78.00dp"
+            android:layout_height="40dp"
+            android:maxLines="2"
+            android:layout_marginTop="6.50dp"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:text="Vegetables And Fruits"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11sdp"
+          />
+
+
+
+
+
+        
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

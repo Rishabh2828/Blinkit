@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "825087689693",
+    "project_id": "blinkit-64631",
+    "storage_bucket": "blinkit-64631.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:825087689693:android:6f3d66124435fb2829ec34",
+        "android_client_info": {
+          "package_name": "com.shurish.blinkit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBc_7mAydNore21FAVo1x1ICzEJ6Iu9kE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#ffbe0b"
+    android:layout_height="match_parent"
+    tools:context=".auth.SplashFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+
+            <TextView
+                android:id="@+id/tvBlinkit"
+                android:layout_width="wrap_content"
+                android:layout_height="91.00dp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:text="blink"
+                android:textSize="78.00sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="91.00dp"
+                android:textStyle="bold"
+                android:textColor="@color/green"
+                android:text="it"
+                android:textSize="78.00sp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:text="India's last minute app"
+            android:textSize="19.50sp"/>
+
+
+
+        <View
+            android:layout_width="234.00dp"
+            android:layout_height="2.60dp"
+            android:layout_weight="3"
+            android:background="#7B7777"
+            android:layout_marginTop="26.00dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:letterSpacing="0.1"
+            android:text="A Zomato Company"
+            android:textSize="10.40sp"
+            android:layout_marginTop="26.00dp"/>
+
+
+        
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
