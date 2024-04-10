@@ -36,6 +36,22 @@ class CategoryFragment : Fragment() {
     ): View? {
         binding= FragmentCategoryBinding.inflate(layoutInflater)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         setStatusBarColor()
 
         getProductCategory()
@@ -45,6 +61,22 @@ class CategoryFragment : Fragment() {
         fetchCategoryProduct()
         return binding.root
     }
+
+
+//    private fun initializeAdapterProduct() {
+//        viewModel.getAll().observe(viewLifecycleOwner) { cartProductsList ->
+//            adapterProduct = AdapterProduct(
+//                ::onAddButtonClicked,
+//                ::onIncreamentButtonClicked,
+//                ::onDecrementButtonClicked,
+//                cartProductsList ?: emptyList()
+//            )
+//            binding.rvProducts.adapter = adapterProduct
+//        }
+//    }
+
+
+
 
     private fun onNavigationIconClicked() {
         binding.tbSearchFragment.setNavigationOnClickListener {
@@ -79,10 +111,31 @@ class CategoryFragment : Fragment() {
                     binding.tvText.visibility= View.GONE
                 }
 
-                adapterProduct = AdapterProduct(::onAddButtonClicked,  ::onIncreamentButtonClicked, ::onDecrementButtonClicked)
-                binding.rvProducts.adapter= adapterProduct
-                adapterProduct.differ.submitList(it)
-                binding.shimmerViewContainer.visibility= View.GONE
+                viewModel.getAll().observe(viewLifecycleOwner) { cartProductsList ->
+                    adapterProduct = AdapterProduct(
+                        ::onAddButtonClicked,
+                        ::onIncreamentButtonClicked,
+                        ::onDecrementButtonClicked,
+                        cartProductsList ?: emptyList()
+                    )
+                    binding.rvProducts.adapter = adapterProduct
+                    adapterProduct.differ.submitList(it)
+                    binding.shimmerViewContainer.visibility= View.GONE
+                }
+
+
+
+
+
+//                adapterProduct = AdapterProduct(
+//                    ::onAddButtonClicked,
+//                    ::onIncreamentButtonClicked,
+//                    ::onDecrementButtonClicked,
+//
+//                )
+//                binding.rvProducts.adapter= adapterProduct
+//                adapterProduct.differ.submitList(it)
+//                binding.shimmerViewContainer.visibility= View.GONE
 
             }
         }
@@ -115,7 +168,7 @@ class CategoryFragment : Fragment() {
         lifecycleScope.launch {
             cartListener?.savingCartItemCount(1)
             saveProductInRoomDb(product)
-            viewModel.updateItemCount(product,itemCount)
+        //    viewModel.updateItemCount(product,itemCount)
 
         }
 
@@ -137,7 +190,7 @@ class CategoryFragment : Fragment() {
             lifecycleScope.launch {
                 cartListener?.savingCartItemCount(1)
                 saveProductInRoomDb(product)
-                viewModel.updateItemCount(product,itemCountInc)
+         //       viewModel.updateItemCount(product,itemCountInc)
 
 
             }
@@ -159,7 +212,7 @@ class CategoryFragment : Fragment() {
         lifecycleScope.launch {
             cartListener?.savingCartItemCount(-1)
             saveProductInRoomDb(product)
-            viewModel.updateItemCount(product,itemCountDec)
+       //     viewModel.updateItemCount(product,itemCountDec)
 
 
         }

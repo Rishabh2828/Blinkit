@@ -32,6 +32,7 @@ class SearchFragment : Fragment() {
     private lateinit var  adapterProduct: AdapterProduct
     private var cartListener : CartListener? = null
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -88,25 +89,44 @@ class SearchFragment : Fragment() {
                     binding.tvText.visibility= View.GONE
                 }
 
-                if (!::adapterProduct.isInitialized) {
-                    // Initialize the adapter only if it's not already initialized
+
+
+                viewModel.getAll().observe(viewLifecycleOwner) { cartProductsList ->
                     adapterProduct = AdapterProduct(
                         ::onAddButtonClicked,
                         ::onIncreamentButtonClicked,
-                        ::onDecrementButtonClicked
+                        ::onDecrementButtonClicked,
+                        cartProductsList ?: emptyList()
                     )
                     binding.rvProducts.adapter = adapterProduct
+                    adapterProduct.differ.submitList(it)
+                    adapterProduct.originalList= it as ArrayList<Product>
+
+                    binding.shimmerViewContainer.visibility= View.GONE
                 }
 
-                adapterProduct.differ.submitList(it)
-                adapterProduct.originalList= it as ArrayList<Product>
-                binding.shimmerViewContainer.visibility= View.GONE
+
+
+
+
+
+
+//
+//                adapterProduct = AdapterProduct(
+//                    ::onAddButtonClicked,
+//                    ::onIncreamentButtonClicked,
+//                    ::onDecrementButtonClicked,
+//                    cartProductsList ?: emptyList(),
+//
+//                )
+//                binding.rvProducts.adapter= adapterProduct
+//                adapterProduct.differ.submitList(it)
+//                binding.shimmerViewContainer.visibility= View.GONE
 
             }
         }
 
     }
-
     private fun onAddButtonClicked(product: Product, productBinding: ItemViewProductBinding){
 
         productBinding.tvAdd.visibility= View.GONE
@@ -123,7 +143,7 @@ class SearchFragment : Fragment() {
         lifecycleScope.launch {
             cartListener?.savingCartItemCount(1)
             saveProductInRoomDb(product)
-            viewModel.updateItemCount(product,itemCount)
+            //  viewModel.updateItemCount(product,itemCount)
 
         }
 
@@ -143,7 +163,7 @@ class SearchFragment : Fragment() {
             lifecycleScope.launch {
                 cartListener?.savingCartItemCount(1)
                 saveProductInRoomDb(product)
-                viewModel.updateItemCount(product,itemCountInc)
+                //   viewModel.updateItemCount(product,itemCountInc)
 
 
             }
@@ -155,6 +175,9 @@ class SearchFragment : Fragment() {
 
     }
 
+
+
+
     fun onDecrementButtonClicked(product: Product, productBinding: ItemViewProductBinding){
 
         var itemCountDec = productBinding.tvProductCount.text.toString().toInt()
@@ -165,7 +188,7 @@ class SearchFragment : Fragment() {
         lifecycleScope.launch {
             cartListener?.savingCartItemCount(-1)
             saveProductInRoomDb(product)
-            viewModel.updateItemCount(product,itemCountDec)
+            //   viewModel.updateItemCount(product,itemCountDec)
 
 
         }
@@ -188,6 +211,7 @@ class SearchFragment : Fragment() {
 
 
     }
+
 
     private fun saveProductInRoomDb(product: Product) {
 

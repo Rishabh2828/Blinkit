@@ -22,6 +22,9 @@
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment"
             app:enterAnim="@anim/from_right" />
+        <action
+            android:id="@+id/action_homeFragment_to_checkNewFragment"
+            app:destination="@id/checkNewFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -89,4 +92,9 @@
             app:popUpTo="@id/ordersFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/checkNewFragment"
+        android:name="com.shurish.blinkit.fragments.CheckNewFragment"
+        android:label="fragment_check_new"
+        tools:layout="@layout/fragment_check_new" />
 </navigation>

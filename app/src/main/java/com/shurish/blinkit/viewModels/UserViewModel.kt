@@ -344,6 +344,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     suspend fun sendNotification(adminUid : String, title:String, message:String){
 
+
       val getToken =  FirebaseDatabase.getInstance().getReference("Admins").child("AdminInfo").child(adminUid).child("adminToken").get()
         getToken.addOnCompleteListener {task->
             val token = task.result.getValue(String::class.java)

@@ -16,13 +16,16 @@ import com.shurish.blinkit.FilteringProducts
 import com.shurish.blinkit.databinding.ItemViewProductBinding
 
 import com.shurish.blinkit.models.Product
+import com.shurish.blinkit.roomdb.CartProducts
 
 
 class AdapterProduct(
     val onAddButtonClicked: (Product, ItemViewProductBinding) -> Unit,
     val onIncreamentButtonClicked: (Product, ItemViewProductBinding) -> Unit,
-    val onDecrementButtonClicked: (Product, ItemViewProductBinding) -> Unit
-) : RecyclerView.Adapter<AdapterProduct.ProductViewHolder>(), Filterable{
+    val onDecrementButtonClicked: (Product, ItemViewProductBinding) -> Unit,
+   val cartProducts: List<CartProducts>,
+
+    ) : RecyclerView.Adapter<AdapterProduct.ProductViewHolder>(), Filterable{
     class ProductViewHolder(val binding : ItemViewProductBinding) :ViewHolder(binding.root){
 
     }
@@ -52,6 +55,8 @@ class AdapterProduct(
 
         val product = differ.currentList[position]
 
+        val cartProduct = cartProducts.find { it.productId == product.productRandomId }
+
 
 
         holder.binding.apply {
@@ -70,11 +75,23 @@ class AdapterProduct(
             tvProductQuantity.text= quantity
             tvProductPrice.text= "₹"+product.productPrice
 
-            if (product.itemCount!!>0){
-                tvProductCount.text=product.itemCount.toString()
-                tvAdd.visibility= View.GONE
-                llProductCount.visibility= View.VISIBLE
+
+
+            if (cartProduct != null && cartProduct.productCount!! > 0) {
+                tvProductCount.text = cartProduct.productCount.toString()
+                tvAdd.visibility = View.GONE
+                llProductCount.visibility = View.VISIBLE
+            } else {
+                tvAdd.visibility = View.VISIBLE
+                llProductCount.visibility = View.GONE
             }
+
+//
+//            if (product.itemCount!!>0){
+//                tvProductCount.text=product.itemCount.toString()
+//                tvAdd.visibility= View.GONE
+//                llProductCount.visibility= View.VISIBLE
+//            }
 
 
             tvAdd.setOnClickListener { onAddButtonClicked(product, this) }
@@ -102,6 +119,8 @@ class AdapterProduct(
         if (filter==null) return  FilteringProducts(this, originalList)
         return  filter
     }
+
+
 
 
 }

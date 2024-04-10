@@ -38,6 +38,7 @@ class HomeFragment : Fragment() {
     private var cartListener : CartListener? = null
 
 
+
     private  lateinit var  binding : FragmentHomeBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,13 +46,35 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(layoutInflater)
 
+
+
+        // Set up observer for cart products list LiveData
+        viewModel.getAll().observe(viewLifecycleOwner) { cartProductsList ->
+            adapterProduct = AdapterProduct(
+                ::onAddButtonClicked,
+                ::onIncreamentButtonClicked,
+                ::onDecrementButtonClicked,
+                cartProductsList ?: emptyList()
+            )
+        }
+
+
         setStatusBarColor()
         setAllCategories()
         navigatingToSearchFragment()
         onProfileClicked()
         fetchBestSellers()
+
+
+
         return binding.root
     }
+
+
+
+
+
+
 
     private fun fetchBestSellers() {
         binding.shimmerViewContainer.visibility = View.VISIBLE
@@ -97,19 +120,36 @@ class HomeFragment : Fragment() {
        findNavController().navigate(R.id.action_homeFragment_to_categoryFragment, bundle)
     }
 
+
+
+
+
+
     fun onSeeAllButtonCLicked(productType : BestSeller){
 
         val bsSeeAllBinding = BsSeeAllBinding.inflate(LayoutInflater.from(requireContext()))
         val bs = BottomSheetDialog(requireContext())
-            bs.setContentView(bsSeeAllBinding.root)
+        bs.setContentView(bsSeeAllBinding.root)
 
+        // Set the adapter for the RecyclerView inside the bottom sheet
+        bsSeeAllBinding.rvProducts.adapter = adapterProduct
 
-
-
-        adapterProduct = AdapterProduct(::onAddButtonClicked, ::onIncreamentButtonClicked, ::onDecrementButtonClicked)
-        bsSeeAllBinding.rvProducts.adapter=adapterProduct
+        // Submit the list of products to the adapter
         adapterProduct.differ.submitList(productType.products)
-           bs.show()
+
+        bs.show()
+
+
+//        adapterProduct = AdapterProduct(
+//            ::onAddButtonClicked,
+//            ::onIncreamentButtonClicked,
+//            ::onDecrementButtonClicked,
+//            cartProductsList ?: emptyList(),
+//
+//        )
+//        bsSeeAllBinding.rvProducts.adapter=adapterProduct
+//        adapterProduct.differ.submitList(productType.products)
+//           bs.show()
     }
 
     private fun onAddButtonClicked(product: Product, productBinding: ItemViewProductBinding){
@@ -128,7 +168,7 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch {
             cartListener?.savingCartItemCount(1)
             saveProductInRoomDb(product)
-            viewModel.updateItemCount(product,itemCount)
+           // viewModel.updateItemCount(product,itemCount)
 
         }
 
@@ -150,7 +190,7 @@ class HomeFragment : Fragment() {
             lifecycleScope.launch {
                 cartListener?.savingCartItemCount(1)
                 saveProductInRoomDb(product)
-                viewModel.updateItemCount(product,itemCountInc)
+             //   viewModel.updateItemCount(product,itemCountInc)
 
 
             }
@@ -172,7 +212,7 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch {
             cartListener?.savingCartItemCount(-1)
             saveProductInRoomDb(product)
-            viewModel.updateItemCount(product,itemCountDec)
+           // viewModel.updateItemCount(product,itemCountDec)
 
 
         }
